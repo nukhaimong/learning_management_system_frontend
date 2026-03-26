@@ -4,11 +4,14 @@ import { useForm } from '@tanstack/react-form';
 import { z } from 'zod';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { authService } from '@/services/auth.service';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 // Zod schema
 const signupSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
+  email: z.email('Invalid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
   role: z.enum(['Learner', 'Instructor']),
 });
@@ -16,6 +19,7 @@ const signupSchema = z.object({
 type SignupFormData = z.infer<typeof signupSchema>;
 
 export default function SignupForm() {
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       name: '',
@@ -30,7 +34,28 @@ export default function SignupForm() {
 
     onSubmit: async ({ value }) => {
       console.log('Signup Data:', value);
+      const toastId = 'register';
+      const { name, email, password, role } = value;
       // 👉 Call your backend API here
+      try {
+        toast.loading('Signing up', { id: toastId });
+        const register = await authService.signup({
+          name,
+          email,
+          password,
+          role,
+        });
+        if (register.error) {
+          toast.error(register.error.message, { id: toastId });
+          return;
+        }
+        if (register.data.emailVarified !== true) {
+          toast.dismiss();
+          router.push(`/verify-email?email=${encodeURIComponent(email)}`);
+        }
+      } catch (error) {
+        console.log('Internal Server Error: ', error);
+      }
     },
   });
 

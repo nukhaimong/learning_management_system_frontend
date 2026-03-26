@@ -1,67 +1,59 @@
 'use client';
 
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from '@tanstack/react-form';
 import { z } from 'zod';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { loginAction } from '@/actions/auth.action';
 import { toast } from 'sonner';
 import { authService } from '@/services/auth.service';
-import { useRouter } from 'next/navigation';
 
-// Zod schema
-const loginSchema = z.object({
+// Zod validation schema
+const verifyEmailSchema = z.object({
   email: z.email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  otp: z.string().length(6, 'OTP must be 6 digits'),
 });
 
-type LoginFormData = z.infer<typeof loginSchema>;
+type VerifyEmailFormData = z.infer<typeof verifyEmailSchema>;
 
-export default function LoginForm() {
+export default function VerifyEmailForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const emailFromQuery = searchParams.get('email') || '';
 
   const form = useForm({
     defaultValues: {
-      email: '',
-      password: '',
-    } as LoginFormData,
-
+      email: emailFromQuery, // pre-fill email
+      otp: '',
+    } as VerifyEmailFormData,
     validators: {
-      onSubmit: loginSchema,
+      onSubmit: verifyEmailSchema,
     },
-
     onSubmit: async ({ value }) => {
-      console.log('Login Data:', value);
-      const toastId = 'logging';
-      const { email, password } = value;
+      const toastId = 'verifying';
       try {
-        toast.loading('Loging...', { id: toastId });
-        const login = await authService.login(email, password);
+        toast.loading('Verifying email...', { id: toastId });
+        const verify = await authService.verifyEmail(value.email, value.otp);
 
-        if (login.error && login.error.message === 'Email not verified') {
-          toast.dismiss();
-          router.push(`/verify-email?email=${encodeURIComponent(email)}`);
+        if (verify.error) {
+          toast.error(verify.error.message || 'Verification failed', {
+            id: toastId,
+          });
           return;
         }
-        if (login.error) {
-          toast.error(login.error.message || 'hedar error', { id: toastId });
-          return;
-        }
-        // if (login.data.emailVerified !== true) {
-        //   toast.dismiss();
-        //   router.push(`/verify-email?email=${encodeURIComponent(email)}`);
-        //   return;
-        // }
-        toast.success(login.message, { id: toastId });
+
+        toast.success(verify.message, { id: toastId });
+        router.push('/');
       } catch (error) {
-        console.log('Internal Server Error: ', error);
+        console.error('Verification error:', error);
+        toast.error('Internal Server Error', { id: toastId });
       }
     },
   });
 
   return (
     <div className="max-w-md mx-auto mt-20 p-6 border rounded-xl shadow-sm">
-      <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center">Verify Email</h2>
 
       <form
         onSubmit={(e) => {
@@ -70,7 +62,7 @@ export default function LoginForm() {
         }}
         className="space-y-4"
       >
-        {/* EMAIL */}
+        {/* EMAIL FIELD */}
         <form.Field name="email">
           {(field) => (
             <div>
@@ -81,6 +73,7 @@ export default function LoginForm() {
                 onChange={(e) => field.handleChange(e.target.value)}
                 onBlur={field.handleBlur}
                 placeholder="Enter your email"
+                disabled // optional: prevent changing email
               />
               {field.state.meta.errors?.map((err, i) => (
                 <p key={i} className="text-red-500 text-sm mt-1">
@@ -91,17 +84,17 @@ export default function LoginForm() {
           )}
         </form.Field>
 
-        {/* PASSWORD */}
-        <form.Field name="password">
+        {/* OTP FIELD */}
+        <form.Field name="otp">
           {(field) => (
             <div>
-              <label className="text-sm font-medium">Password</label>
+              <label className="text-sm font-medium">OTP</label>
               <Input
-                type="password"
+                type="text"
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value)}
                 onBlur={field.handleBlur}
-                placeholder="Enter your password"
+                placeholder="Enter 6-digit OTP"
               />
               {field.state.meta.errors?.map((err, i) => (
                 <p key={i} className="text-red-500 text-sm mt-1">
@@ -112,13 +105,13 @@ export default function LoginForm() {
           )}
         </form.Field>
 
-        {/* SUBMIT */}
+        {/* SUBMIT BUTTON */}
         <Button
           type="submit"
           className="w-full"
           disabled={form.state.isSubmitting}
         >
-          {form.state.isSubmitting ? 'Logging in...' : 'Login'}
+          {form.state.isSubmitting ? 'Verifying...' : 'Verify Email'}
         </Button>
       </form>
     </div>

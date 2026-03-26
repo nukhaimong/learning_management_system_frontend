@@ -6,7 +6,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-full mx-auto px-6">
+    <div>
       <Navbar />
       {children}
     </div>
