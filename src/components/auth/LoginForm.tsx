@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { authService } from '@/services/auth.service';
+import { authService } from '@/services/auth/auth.service';
 import { useRouter } from 'next/navigation';
 
 // Zod schema

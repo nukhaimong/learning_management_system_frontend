@@ -3,7 +3,7 @@ import { AppSidebar } from '@/components/layout/appSideBar';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { Role } from '@/constants';
 import { adminRoutes, instructorRoutes, LearnerRoutes } from '@/routes/routes';
-import { getMe } from '@/services/auth.server.service';
+import { getMe } from '@/services/auth/auth.server.service';
 
 export default async function DashboardLayout({
   children,
@@ -11,11 +11,13 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   const { data } = await getMe();
+
   const role = data?.role;
 
   const getRoutes = () => {
     switch (role) {
       case Role.Admin:
+      case Role.SuperAdmin:
         return adminRoutes;
       case Role.Instructor:
         return instructorRoutes;

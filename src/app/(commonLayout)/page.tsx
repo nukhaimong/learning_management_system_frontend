@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { getMe } from '@/services/auth.server.service';
+import { getMe } from '@/services/auth/auth.server.service';
 
 export default async function Home() {
   const session = await getMe();

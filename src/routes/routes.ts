@@ -27,6 +27,10 @@ export const adminRoutes: Routes[] = [
         title: 'Create Category',
         url: '/admin-dashboard/create-category',
       },
+      {
+        title: 'See all categories',
+        url: '/admin-dashboard/all-categories',
+      },
     ],
   },
 ];

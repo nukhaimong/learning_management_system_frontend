@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getMe } from './services/auth.server.service';
+import { getMe } from './services/auth/auth.server.service';
 import { Role } from './constants';
 
 export default async function middleware(request: NextRequest) {

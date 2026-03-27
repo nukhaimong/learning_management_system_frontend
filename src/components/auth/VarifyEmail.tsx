@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { authService } from '@/services/auth.service';
+import { authService } from '@/services/auth/auth.service';
 
 // Zod validation schema
 const verifyEmailSchema = z.object({

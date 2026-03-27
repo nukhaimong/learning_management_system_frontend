@@ -4,7 +4,7 @@ import { useForm } from '@tanstack/react-form';
 import { z } from 'zod';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { authService } from '@/services/auth.service';
+import { authService } from '@/services/auth/auth.service';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
