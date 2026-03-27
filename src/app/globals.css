@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -127,4 +127,22 @@
   html {
     @apply font-sans;
   }
+}
+
+/* Ensure the bar is bright and on top of everything */
+#nprogress .bar {
+  background: #3b82f6 !important; /* Use a bright blue or your brand color */
+  height: 4px !important;
+  z-index: 9999 !important; /* Sit above the Sidebar and Header */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* Optional: Add a glowing effect to the tip */
+#nprogress .peg {
+  box-shadow:
+    0 0 10px #3b82f6,
+    0 0 5px #3b82f6 !important;
 }
