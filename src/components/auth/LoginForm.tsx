@@ -4,7 +4,6 @@ import { useForm } from '@tanstack/react-form';
 import { z } from 'zod';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { loginAction } from '@/actions/auth.action';
 import { toast } from 'sonner';
 import { authService } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
@@ -53,6 +52,7 @@ export default function LoginForm() {
         //   return;
         // }
         toast.success(login.message, { id: toastId });
+        router.push('/');
       } catch (error) {
         console.log('Internal Server Error: ', error);
       }

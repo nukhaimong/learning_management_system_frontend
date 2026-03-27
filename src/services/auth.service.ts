@@ -1,6 +1,3 @@
-import { error } from 'console';
-
-const API_URL = process.env.API_URL;
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface SignupPayload {
@@ -72,6 +69,30 @@ export const authService = {
     } catch (error) {
       console.error('something went wrong: ', error);
       return { error: { message: 'Internal Server Error' } };
+    }
+  },
+  getMe: async () => {
+    try {
+      const res = await fetch(`${NEXT_PUBLIC_API_URL}/auth/get-me`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        cache: 'no-cache',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        return {
+          error: {
+            message: data.message || 'Something went wrong to get user',
+          },
+        };
+      }
+      return data;
+    } catch (error) {
+      console.error('Internal Server Error: ', error);
+      return { error: { message: 'Internal Server Error: ', error } };
     }
   },
 };
