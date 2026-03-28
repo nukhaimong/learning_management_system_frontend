@@ -6,9 +6,9 @@ import { revalidateTag } from 'next/cache';
 export default async function ModulesPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ course_id: string }>;
 }) {
-  const { id: course_id } = await params;
+  const { course_id } = await params;
 
   const { data: modules } = await getModules(course_id);
 

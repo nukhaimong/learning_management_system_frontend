@@ -90,4 +90,51 @@ export const courseService = {
       return { error: { message: 'Creating Lecture Failed' } };
     }
   },
+  updateLecture: async (lecture_id: string, formData: FormData) => {
+    try {
+      const response = await fetch(
+        `${NEXT_PUBLIC_API_URL}/lecture/update/${lecture_id}`,
+        {
+          method: 'PUT',
+          credentials: 'include',
+          body: formData,
+          cache: 'no-cache',
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: { message: data.message } };
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error updating lecture:', error);
+      return { error: { message: 'Updating Lecture Failed' } };
+    }
+  },
+  deleteLecture: async (lecture_id: string) => {
+    try {
+      const response = await fetch(
+        `${NEXT_PUBLIC_API_URL}/lecture/delete/${lecture_id}`,
+        {
+          method: 'DELETE',
+          credentials: 'include',
+          cache: 'no-cache',
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: { message: data.message } };
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error deleting lecture:', error);
+      return { error: { message: 'Deleting Lecture Failed' } };
+    }
+  },
 };

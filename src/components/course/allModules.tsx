@@ -32,7 +32,7 @@ export const ModulesList = ({ modules, courseId }: ModulesListProps) => {
             <div className="flex gap-2">
               {/* CREATE LECTURE BUTTON */}
               <Link
-                href={`/instructor-dashboard/course/${courseId}/module/${module.id}/create-lecture`}
+                href={`/instructor-dashboard/all-courses/${courseId}/${module.id}`}
                 className="px-3 py-1 bg-green-500 text-white text-sm rounded"
               >
                 + Lecture
