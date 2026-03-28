@@ -45,4 +45,49 @@ export const courseService = {
       return { error: { message: 'Failed to fetch courses' } };
     }
   },
+  createModule: async (course_id: string, title: string) => {
+    try {
+      const response = await fetch(`${NEXT_PUBLIC_API_URL}/module`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ title, course_id }),
+        cache: 'no-cache',
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: { message: data.message } };
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error creating module:', error);
+      return { error: { message: 'Failed to create module' } };
+    }
+  },
+  createLecture: async (formData: FormData) => {
+    try {
+      const response = await fetch(`${NEXT_PUBLIC_API_URL}/lecture`, {
+        method: 'POST',
+        credentials: 'include',
+        body: formData,
+        cache: 'no-cache',
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: { message: data.message } };
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error creating lecture:', error);
+      return { error: { message: 'Creating Lecture Failed' } };
+    }
+  },
 };

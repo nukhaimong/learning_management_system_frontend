@@ -1,7 +1,24 @@
-import React from 'react';
+import { ModulesList } from '@/components/course/allModules';
+import CreateModuleForm from '@/components/course/createModuleForm';
+import { getModules } from '@/services/course/course.server.service';
+import { revalidateTag } from 'next/cache';
 
-const page = () => {
-  return <div>id</div>;
-};
+export default async function ModulesPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id: course_id } = await params;
 
-export default page;
+  const { data: modules } = await getModules(course_id);
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+      {/* LEFT */}
+      <CreateModuleForm />
+
+      {/* RIGHT */}
+      <ModulesList modules={modules} courseId={course_id} />
+    </div>
+  );
+}
