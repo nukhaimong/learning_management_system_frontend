@@ -4,3 +4,9 @@ export const Role = {
   Admin: 'Admin',
   SuperAdmin: 'Super_admin',
 };
+
+export const Level = {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Advanced: 'Advanced',
+};

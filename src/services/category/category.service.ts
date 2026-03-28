@@ -21,4 +21,23 @@ export const categoryService = {
       return { error: { message: 'Internal Server Error' } };
     }
   },
+  getCategories: async () => {
+    try {
+      const res = await fetch(`${NEXT_PUBLIC_API_URL}/category`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        cache: 'no-cache',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        return { error: { message: data.message } };
+      }
+      return data;
+    } catch (error) {
+      return { error: { message: 'Internal Server Error' } };
+    }
+  },
 };

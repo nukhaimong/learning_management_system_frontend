@@ -44,11 +44,11 @@ export const instructorRoutes: Routes[] = [
       },
       {
         title: 'create course',
-        url: '/instructor-dashboard/create-courses',
+        url: '/instructor-dashboard/create-course',
       },
       {
         title: 'all courses',
-        url: '/dashboard/create-courses',
+        url: '/instructor-dashboard/all-courses',
       },
     ],
   },

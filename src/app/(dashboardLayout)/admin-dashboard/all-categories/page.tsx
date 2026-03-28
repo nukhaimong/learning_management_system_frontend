@@ -31,14 +31,14 @@ const AllCategories = async () => {
           Manage Categories
         </h2>
         <Badge variant="secondary" className="px-3 py-1">
-          {data.length} Total
+          {data?.length} Total
         </Badge>
       </div>
 
       <div className="p-0">
         <Table>
           <TableCaption className="pb-4">
-            A list of categories for your food delivery items.
+            A list of categories for your Learning Management System App.
           </TableCaption>
           <TableHeader className="bg-muted/50">
             <TableRow>
@@ -49,8 +49,8 @@ const AllCategories = async () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.length > 0 ? (
-              data.map((category, index) => (
+            {data?.length > 0 ? (
+              data?.map((category, index) => (
                 <TableRow
                   key={category.id}
                   className="transition-colors hover:bg-muted/30"
