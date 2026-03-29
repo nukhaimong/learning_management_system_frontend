@@ -2,8 +2,8 @@ export interface Course {
   id: string;
   title: string;
   description: string;
-  thumbnail_url: string;
-  intro_video_url: string;
+  thumbnail: string;
+  intro_video: string;
   course_fee: number;
   isFree: boolean;
   level: string;
