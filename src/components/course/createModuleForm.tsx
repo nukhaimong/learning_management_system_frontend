@@ -20,7 +20,7 @@ type ModuleFormData = z.infer<typeof moduleSchema>;
 export default function CreateModuleForm() {
   const router = useRouter();
   const params = useParams();
-  const courseId = params.id as string;
+  const courseId = params.course_id as string;
 
   const form = useForm({
     defaultValues: {

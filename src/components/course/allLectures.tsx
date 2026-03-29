@@ -13,8 +13,9 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { Edit, Trash2, Play, X } from 'lucide-react';
+import { Edit, Trash2, Play, Plus } from 'lucide-react'; // Added Plus icon
 import { courseService } from '@/services/course/course.service';
+import CreateLectureForm from './createLectureForm';
 
 interface LectureData {
   id: string;
@@ -36,6 +37,7 @@ export default function AllLectures({
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [insertDialogOpen, setInsertDialogOpen] = useState(false); // New State
   const [selectedLecture, setSelectedLecture] = useState<LectureData | null>(
     null,
   );
@@ -51,13 +53,19 @@ export default function AllLectures({
   const handleEditClick = (lecture: LectureData) => {
     setSelectedLecture(lecture);
     setEditingTitle(lecture.title);
-    setEditingVideoFile(null); // Reset file selection
+    setEditingVideoFile(null);
     setEditDialogOpen(true);
   };
 
   const handlePlayClick = (lecture: LectureData) => {
     setSelectedLecture(lecture);
     setVideoModalOpen(true);
+  };
+
+  // New handler for Insertion
+  const handleInsertClick = (lecture: LectureData) => {
+    setSelectedLecture(lecture);
+    setInsertDialogOpen(true);
   };
 
   const confirmDelete = async () => {
@@ -96,13 +104,9 @@ export default function AllLectures({
       toast.loading('Updating lecture...', { id: toastId });
 
       const formData = new FormData();
-
-      // Only append title if it has changed
       if (editingTitle !== selectedLecture.title) {
         formData.append('title', editingTitle);
       }
-
-      // Only append video file if a new one is selected
       if (editingVideoFile) {
         formData.append('video_url', editingVideoFile);
       }
@@ -162,7 +166,8 @@ export default function AllLectures({
                     Video URL: {lecture.video_url}
                   </p>
                 </div>
-                <div className="flex gap-2 ml-4">
+                <div className="flex flex-wrap gap-2 ml-4">
+                  {/* Play Button */}
                   <Button
                     variant="outline"
                     size="sm"
@@ -172,6 +177,19 @@ export default function AllLectures({
                     <Play className="w-4 h-4" />
                     Play
                   </Button>
+
+                  {/* INSERT AFTER BUTTON */}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleInsertClick(lecture)}
+                    className="gap-2 border-blue-200 text-blue-600 hover:bg-blue-50"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Insert After
+                  </Button>
+
+                  {/* Edit Button */}
                   <Button
                     variant="outline"
                     size="sm"
@@ -181,6 +199,8 @@ export default function AllLectures({
                     <Edit className="w-4 h-4" />
                     Edit
                   </Button>
+
+                  {/* Delete Button */}
                   <Button
                     variant="destructive"
                     size="sm"
@@ -196,6 +216,32 @@ export default function AllLectures({
           ))}
         </div>
       </div>
+
+      {/* --- Dialogs --- */}
+
+      {/* Insert Lecture Dialog */}
+      <Dialog open={insertDialogOpen} onOpenChange={setInsertDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Insert Lecture</DialogTitle>
+            <DialogDescription>
+              This lecture will be placed immediately after "
+              {selectedLecture?.title}".
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            {selectedLecture && (
+              <CreateLectureForm
+                targetLectureId={selectedLecture.id}
+                onSuccess={() => {
+                  setInsertDialogOpen(false);
+                  onLectureUpdate?.();
+                }}
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Video Modal */}
       <Dialog open={videoModalOpen} onOpenChange={setVideoModalOpen}>

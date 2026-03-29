@@ -1,4 +1,3 @@
-// app/courses/[id]/modules/[module_id]/CreateLectureForm.tsx
 'use client';
 
 import { useForm } from '@tanstack/react-form';
@@ -16,7 +15,15 @@ const lectureSchema = z.object({
 
 type LectureFormData = z.infer<typeof lectureSchema>;
 
-export default function CreateLectureForm() {
+interface CreateLectureFormProps {
+  targetLectureId?: string; // If provided, we insert after this ID
+  onSuccess?: () => void; // Callback to close popups
+}
+
+export default function CreateLectureForm({
+  targetLectureId,
+  onSuccess,
+}: CreateLectureFormProps) {
   const router = useRouter();
   const params = useParams();
   const moduleId = params.module_id as string;
@@ -27,31 +34,43 @@ export default function CreateLectureForm() {
       video_url: null as unknown as File,
     } as LectureFormData,
     validators: {
-      onSubmit: lectureSchema as any,
+      onSubmit: lectureSchema,
     },
     onSubmit: async ({ value }) => {
       const toastId = 'uploading';
       try {
-        toast.loading('Uploading lecture...', { id: toastId });
+        toast.loading(
+          targetLectureId ? 'Inserting lecture...' : 'Uploading lecture...',
+          { id: toastId },
+        );
 
         const formData = new FormData();
         const metaData = {
           title: value.title,
           module_id: moduleId,
         };
+
         formData.append('data', JSON.stringify(metaData));
         formData.append('video_url', value.video_url);
 
-        const res = await courseService.createLecture(formData);
+        // Logic switch: Call insertLecture if targetLectureId exists
+        const res = targetLectureId
+          ? await courseService.insertLecture(targetLectureId, formData)
+          : await courseService.createLecture(formData);
 
         if (res.error) {
-          toast.error(res.error.message || 'Upload failed', { id: toastId });
+          toast.error(res.error.message || 'Operation failed', { id: toastId });
           return;
         }
 
-        toast.success('Lecture created successfully!', { id: toastId });
+        toast.success(
+          targetLectureId ? 'Lecture inserted!' : 'Lecture created!',
+          { id: toastId },
+        );
+
         form.reset();
         router.refresh();
+        if (onSuccess) onSuccess(); // Close the modal/popup
       } catch (error) {
         toast.error('Upload failed', { id: toastId });
       }
@@ -59,8 +78,10 @@ export default function CreateLectureForm() {
   });
 
   return (
-    <div className="max-w-md p-6 border rounded-xl shadow-sm bg-card">
-      <h2 className="text-xl font-bold mb-6">Create Lecture</h2>
+    <div className="w-full max-w-md p-2 bg-card">
+      <h2 className="text-xl font-bold mb-6">
+        {targetLectureId ? 'Insert New Lecture' : 'Create Lecture'}
+      </h2>
 
       <form
         onSubmit={(e) => {
@@ -76,7 +97,7 @@ export default function CreateLectureForm() {
               <Input
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value)}
-                placeholder="Enter lecture title"
+                placeholder="e.g. Advanced TypeScript Patterns"
               />
               {field.state.meta.errors?.map((err, i) => (
                 <p key={i} className="text-red-500 text-xs">
@@ -109,7 +130,7 @@ export default function CreateLectureForm() {
         </form.Field>
 
         <Button type="submit" className="w-full">
-          Create Lecture
+          {targetLectureId ? 'Insert After' : 'Create Lecture'}
         </Button>
       </form>
     </div>
