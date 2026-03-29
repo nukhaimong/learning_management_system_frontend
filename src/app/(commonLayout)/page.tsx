@@ -1,13 +1,15 @@
+import Hero from '@/components/homepage/herosection';
 import { Button } from '@/components/ui/button';
 import { getMe } from '@/services/auth/auth.server.service';
+import { getCategories } from '@/services/category/category.server.service';
 
 export default async function Home() {
-  const session = await getMe();
-  console.log('Testing...');
-  console.log(session);
+  const { data: categories } = await getCategories();
+  // console.log('Testing...');
+  // console.log(session);
   return (
     <div>
-      <Button variant="outline">Click Me</Button>
+      <Hero categories={categories} />
     </div>
   );
 }

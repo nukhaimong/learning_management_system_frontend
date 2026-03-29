@@ -10,6 +10,7 @@ export const getCategories = async () => {
         'Content-Type': 'application/json',
         Cookie: cookieStore.toString(),
       },
+      next: { revalidate: 60 },
       cache: 'no-cache',
     });
     const data = await res.json();
