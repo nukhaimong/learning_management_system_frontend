@@ -12,6 +12,7 @@ export default async function Home() {
   ]);
 
   const categories = catRes?.data || [];
+  const topFiveCategory = categories.slice(0, 5);
   const allCourses = courseRes?.data || [];
 
   // 1. Featured: The latest 4 published courses (regardless of price)
@@ -26,7 +27,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen">
-      <Hero categories={categories} />
+      <Hero categories={topFiveCategory} />
 
       {/* SECTION 1: FEATURED COURSES */}
       <section className="py-16 container mx-auto px-4">

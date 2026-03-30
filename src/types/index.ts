@@ -86,3 +86,8 @@ export interface Enrollment {
     }[];
   };
 }
+
+export interface Category {
+  id: string;
+  title: string;
+}

@@ -6,6 +6,7 @@ export const getCourses = async (searchTerm?: string) => {
   try {
     const response = await fetch(
       `${API_URL}/course${searchTerm ? `?searchTerm=${searchTerm}` : ''}`,
+
       {
         method: 'GET',
         headers: {
@@ -13,7 +14,6 @@ export const getCourses = async (searchTerm?: string) => {
           Cookie: cookieStore.toString(),
         },
         next: { revalidate: 60 },
-        cache: 'no-cache',
       },
     );
 
@@ -51,6 +51,30 @@ export const getCourseById = async (course_id: string) => {
   } catch (error) {
     console.error('Error fetching course:', error);
     return { error: { message: 'Failed to fetch course' } };
+  }
+};
+export const getCoursesByCategory = async (category_id: string) => {
+  const cookieStore = await cookies();
+  try {
+    const response = await fetch(`${API_URL}/course/category/${category_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Cookie: cookieStore.toString(),
+      },
+      next: { revalidate: 60 },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { error: { message: data.message } };
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching courses by category:', error);
+    return { error: { message: 'Failed to fetch courses by category' } };
   }
 };
 export const getModules = async (course_id: string) => {

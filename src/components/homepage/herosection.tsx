@@ -102,10 +102,7 @@ export default function Hero({ categories }: { categories: Category[] }) {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
-              <Link
-                key={category.id}
-                href={`/explore?category=${category.title.toLowerCase().replace(' ', '-')}`}
-              >
+              <Link key={category.id} href={`/explore/${category.id}`}>
                 <span className="px-6 py-3 rounded-full border border-slate-200 bg-white text-slate-700 font-medium hover:border-indigo-600 hover:text-indigo-600 hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer inline-block">
                   {category.title}
                 </span>
