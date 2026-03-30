@@ -3,6 +3,7 @@ import Hero from '@/components/homepage/herosection';
 import WhyChooseUs from '@/components/homepage/whyChooseUs';
 import { getCategories } from '@/services/category/category.server.service';
 import { getCourses } from '@/services/course/course.server.service';
+import { Course } from '@/types';
 
 export default async function Home() {
   const [catRes, courseRes] = await Promise.all([
@@ -15,16 +16,16 @@ export default async function Home() {
 
   // 1. Featured: The latest 4 published courses (regardless of price)
   const featuredCourses = allCourses
-    ?.filter((c: any) => c.isPublished === true && c.isFree === false)
+    ?.filter((c: Course) => c.isPublished === true && c.isFree === false)
     .slice(0, 4);
 
   // 2. Free: The latest 4 courses where isFree is true
   const freeCourses = allCourses
-    ?.filter((c: any) => c.isPublished === true && c.isFree === true)
+    ?.filter((c: Course) => c.isPublished === true && c.isFree === true)
     .slice(0, 4);
 
   return (
-    <main className="min-h-screen pb-20">
+    <main className="min-h-screen">
       <Hero categories={categories} />
 
       {/* SECTION 1: FEATURED COURSES */}

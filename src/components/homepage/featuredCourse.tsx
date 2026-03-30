@@ -40,7 +40,7 @@ export default function CourseGrid({ courses, isFreeSection }: GridProps) {
               {course.description}
             </p>
 
-            <Link href={`/courses/${course.id}`} className="block">
+            <Link href={`/explore/${course.id}`} className="block">
               <button
                 className={`w-full py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${
                   isFreeSection
