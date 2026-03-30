@@ -1,5 +1,5 @@
-import CourseActionButtons from '@/components/course/courseAction.button';
-import CourseCurriculum from '@/components/course/courseCurirculam';
+import CourseActionButtons from '@/components/explore/courseAction.button';
+import CourseCurriculum from '@/components/explore/courseCurirculam';
 import { getCourseById } from '@/services/course/course.server.service';
 import { SingleCourse } from '@/types';
 

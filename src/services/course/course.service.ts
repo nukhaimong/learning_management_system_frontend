@@ -1,6 +1,3 @@
-import { Form } from '@base-ui/react';
-import { tr } from 'zod/v4/locales';
-
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const courseService = {
@@ -93,6 +90,57 @@ export const courseService = {
     } catch (error) {
       console.error('Error deleting course:', error);
       return { error: { message: 'Deleting Failed' } };
+    }
+  },
+  addTofavorites: async (course_id: string) => {
+    try {
+      const response = await fetch(`${NEXT_PUBLIC_API_URL}/favorites`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ course_id }),
+        credentials: 'include',
+        cache: 'no-cache',
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: { message: data.message } };
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error adding to favorites:', error);
+      return { error: { message: 'Failed to add to favorites' } };
+    }
+  },
+  deleteFormFavourites: async (course_id: string) => {
+    try {
+      const response = await fetch(
+        `${NEXT_PUBLIC_API_URL}/course/favorites/delete`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ course_id }),
+          credentials: 'include',
+          cache: 'no-cache',
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: { message: data.message } };
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error deleting course from favorites:', error);
+      return { error: { message: 'Failed to delete from favorites' } };
     }
   },
   createModule: async (course_id: string, title: string) => {
