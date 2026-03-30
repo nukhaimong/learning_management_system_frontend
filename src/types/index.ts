@@ -91,3 +91,23 @@ export interface Category {
   id: string;
   title: string;
 }
+export interface Favorite {
+  id: string;
+  course_id: string;
+  learner_id: string;
+  course: {
+    id: string;
+    title: string;
+    description: string;
+    thumbnail: string;
+    intro_video: string;
+    course_fee: number;
+    isFree: boolean;
+    level: string;
+    category_id: string;
+    createdAt: string;
+    updatedAt: string;
+    isPublished: boolean;
+    publishedAt: Date;
+  };
+}

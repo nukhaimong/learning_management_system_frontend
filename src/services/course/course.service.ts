@@ -116,20 +116,17 @@ export const courseService = {
       return { error: { message: 'Failed to add to favorites' } };
     }
   },
-  deleteFormFavourites: async (course_id: string) => {
+  deleteFromFavorites: async (course_id: string) => {
     try {
-      const response = await fetch(
-        `${NEXT_PUBLIC_API_URL}/course/favorites/delete`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ course_id }),
-          credentials: 'include',
-          cache: 'no-cache',
+      const response = await fetch(`${NEXT_PUBLIC_API_URL}/favorites/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+        body: JSON.stringify({ course_id }),
+        credentials: 'include',
+        cache: 'no-cache',
+      });
 
       const data = await response.json();
 
@@ -139,8 +136,8 @@ export const courseService = {
 
       return data;
     } catch (error) {
-      console.error('Error deleting course from favorites:', error);
-      return { error: { message: 'Failed to delete from favorites' } };
+      console.error('Error adding to favorites:', error);
+      return { error: { message: 'Failed to add to favorites' } };
     }
   },
   createModule: async (course_id: string, title: string) => {

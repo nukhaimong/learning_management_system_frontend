@@ -9,8 +9,8 @@ export const LearnerRoutes: Routes[] = [
         url: '/',
       },
       {
-        title: 'All Enrollments',
-        url: '/dashboard/all-enrollments',
+        title: 'my-favorites',
+        url: '/dashboard/my-favorites',
       },
     ],
   },
