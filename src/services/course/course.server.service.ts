@@ -1,18 +1,21 @@
 import { cookies } from 'next/headers';
 const API_URL = process.env.API_URL;
 
-export const getCourses = async () => {
+export const getCourses = async (searchTerm?: string) => {
   const cookieStore = await cookies();
   try {
-    const response = await fetch(`${API_URL}/course`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Cookie: cookieStore.toString(),
+    const response = await fetch(
+      `${API_URL}/course${searchTerm ? `?searchTerm=${searchTerm}` : ''}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Cookie: cookieStore.toString(),
+        },
+        next: { revalidate: 60 },
+        cache: 'no-cache',
       },
-      next: { revalidate: 60 },
-      cache: 'no-cache',
-    });
+    );
 
     const data = await response.json();
 

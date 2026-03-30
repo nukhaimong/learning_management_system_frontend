@@ -1,12 +1,11 @@
-import { PlayCircle, Star } from 'lucide-react';
+import { PlayCircle } from 'lucide-react';
 import Link from 'next/link';
 
 interface GridProps {
   courses: any[];
-  isFreeSection?: boolean;
 }
 
-export default function CourseGrid({ courses, isFreeSection }: GridProps) {
+export default function CourseGrid({ courses }: GridProps) {
   if (!courses?.length) return null;
 
   return (
@@ -23,11 +22,9 @@ export default function CourseGrid({ courses, isFreeSection }: GridProps) {
               alt={course.title}
               className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
             />
-            {!isFreeSection && (
-              <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md text-xs font-bold text-slate-900 shadow-sm">
-                {course.isFree ? 'FREE' : `৳${course.course_fee}`}
-              </div>
-            )}
+            <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md text-xs font-bold text-slate-900 shadow-sm">
+              {course.isFree ? 'FREE' : `৳${course.course_fee}`}
+            </div>
           </div>
 
           {/* Content */}
@@ -40,16 +37,10 @@ export default function CourseGrid({ courses, isFreeSection }: GridProps) {
               {course.description}
             </p>
 
-            <Link href={`/explore/${course.id}`} className="block">
-              <button
-                className={`w-full py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${
-                  isFreeSection
-                    ? 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-100'
-                    : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-100'
-                }`}
-              >
+            <Link href={`/course/${course.id}`} className="block">
+              <button className="w-full py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-100">
                 <PlayCircle className="w-4 h-4" />
-                {isFreeSection ? 'Enroll Free' : 'Get Started'}
+                Get Started
               </button>
             </Link>
           </div>

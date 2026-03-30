@@ -59,7 +59,7 @@ export default async function Home() {
               </p>
             </div>
           </div>
-          <CourseGrid courses={freeCourses} isFreeSection />
+          <CourseGrid courses={freeCourses} />
         </div>
         <div className="mt-10">
           <WhyChooseUs />

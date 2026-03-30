@@ -1,3 +1,4 @@
+import WatchButton from '@/components/ui/watchButton';
 import { getEnrollmetsByLearnerId } from '@/services/enrollment/enrollment.server.service';
 import Link from 'next/link';
 
@@ -33,7 +34,7 @@ const Dashboard = async () => {
               key={item.id}
               className="group bg-white border border-gray-200 rounded-lg overflow-hidden flex flex-col hover:border-blue-400 hover:shadow-lg transition-all duration-300"
             >
-              {/* Larger Course Thumbnail - Full Image Visible */}
+              {/* Thumbnail */}
               <div className="relative w-full overflow-hidden bg-gray-100">
                 <img
                   src={item.course.thumbnail}
@@ -42,19 +43,14 @@ const Dashboard = async () => {
                 />
               </div>
 
-              {/* Card Body - More Padding */}
+              {/* Card Body */}
               <div className="p-4 flex flex-col flex-grow">
                 <h3 className="text-base font-semibold text-gray-800 line-clamp-2 mb-4 group-hover:text-blue-600 transition-colors">
                   {item.course.title}
                 </h3>
 
-                {/* Watch Now Button - Bigger */}
-                <Link
-                  href={`/dashboard/${item.id}`}
-                  className="mt-auto w-full text-center py-3 bg-blue-600 text-white text-sm font-semibold uppercase tracking-wider rounded-md hover:bg-blue-700 active:scale-95 transition-all"
-                >
-                  Watch Now
-                </Link>
+                {/* --- UPDATED BUTTON HERE --- */}
+                <WatchButton enrollmentId={item.id} />
               </div>
             </div>
           ))}

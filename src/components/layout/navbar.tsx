@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { Search, Menu, X, ArrowRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import SearchBar from './searchBar';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -85,41 +86,7 @@ const Navbar = () => {
           </nav>
 
           {/* SEARCH BAR */}
-          <div className="flex-1 max-w-xl hidden md:block">
-            <div
-              className={`w-full relative transition-all duration-200 ${
-                searchFocused ? 'scale-[1.01]' : 'scale-100'
-              }`}
-            >
-              <div className="relative">
-                <Search
-                  className={`absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors ${
-                    searchFocused ? 'text-primary' : 'text-muted-foreground'
-                  }`}
-                />
-                <Input
-                  type="search"
-                  placeholder="Search courses, tutorials, or topics..."
-                  className="w-full pl-10 pr-24 py-2 bg-muted/50 border-border rounded-full focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:border-primary transition-all"
-                  onFocus={() => setSearchFocused(true)}
-                  onBlur={() => setSearchFocused(false)}
-                />
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                  <kbd className="hidden sm:inline-flex px-1.5 py-0.5 text-[10px] font-mono font-medium bg-background border rounded-md shadow-sm">
-                    ⌘K
-                  </kbd>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-7 px-3 text-xs rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
-                  >
-                    Search
-                    <ArrowRight className="ml-1 h-3 w-3" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <SearchBar />
 
           {/* RIGHT SECTION: Auth Buttons */}
           <div className="flex items-center gap-2 shrink-0">
@@ -165,15 +132,7 @@ const Navbar = () => {
               })}
 
               {/* Mobile Search */}
-              <div className="relative mt-4 pt-4 border-t">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Search..."
-                  className="w-full pl-10 pr-4 py-2 bg-muted/50 border-border rounded-lg"
-                />
-              </div>
-
+              <SearchBar isMobile={true} />
               {/* Mobile Auth */}
               <div className="flex gap-2 mt-4">
                 <Link href="/login" className="flex-1">
