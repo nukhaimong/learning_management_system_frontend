@@ -1,3 +1,5 @@
+import { en } from 'zod/v4/locales';
+
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const enrollmentService = {

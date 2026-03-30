@@ -1,6 +1,5 @@
 import { getEnrollmetsByLearnerId } from '@/services/enrollment/enrollment.server.service';
 import Link from 'next/link';
-import React from 'react';
 
 interface Enrollements {
   data: {

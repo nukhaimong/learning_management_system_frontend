@@ -68,3 +68,21 @@ export interface SingleCourse {
 export interface CourseData {
   data: Course[];
 }
+
+export interface Enrollment {
+  id: string;
+  course: {
+    id: string;
+    title: string;
+    thumbnail: string;
+    modules: {
+      id: string;
+      title: string;
+      lectures: {
+        id: string;
+        title: string;
+        video_url: string;
+      }[];
+    }[];
+  };
+}
