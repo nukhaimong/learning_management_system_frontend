@@ -27,9 +27,9 @@ const Dashboard = async () => {
         </p>
       </div>
 
-      {enrollmentList.length > 0 ? (
+      {enrollmentList?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {enrollmentList.map((item) => (
+          {enrollmentList?.map((item) => (
             <div
               key={item.id}
               className="group bg-white border border-gray-200 rounded-lg overflow-hidden flex flex-col hover:border-blue-400 hover:shadow-lg transition-all duration-300"

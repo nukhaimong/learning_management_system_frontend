@@ -33,10 +33,8 @@ export default function SignupForm() {
     },
 
     onSubmit: async ({ value }) => {
-      console.log('Signup Data:', value);
       const toastId = 'register';
       const { name, email, password, role } = value;
-      // 👉 Call your backend API here
       try {
         toast.loading('Signing up', { id: toastId });
         const register = await authService.signup({

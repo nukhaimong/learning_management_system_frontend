@@ -10,7 +10,7 @@ export default function CourseGrid({ courses }: GridProps) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      {courses.map((course) => (
+      {courses?.map((course) => (
         <div
           key={course.id}
           className="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"

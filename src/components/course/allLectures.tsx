@@ -137,7 +137,7 @@ export default function AllLectures({
     }
   };
 
-  if (lectures.length === 0) {
+  if (lectures?.length === 0) {
     return (
       <div className="text-center py-12 bg-gray-50 rounded-lg">
         <p className="text-gray-500">
@@ -152,7 +152,7 @@ export default function AllLectures({
       <div className="space-y-4">
         <h2 className="text-xl font-bold mb-4">All Lectures</h2>
         <div className="grid gap-4">
-          {lectures.map((lecture) => (
+          {lectures?.map((lecture) => (
             <div
               key={lecture.id}
               className="border rounded-lg p-4 hover:shadow-md transition-shadow bg-white"

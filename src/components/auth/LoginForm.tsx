@@ -30,7 +30,6 @@ export default function LoginForm() {
     },
 
     onSubmit: async ({ value }) => {
-      console.log('Login Data:', value);
       const toastId = 'logging';
       const { email, password } = value;
       try {

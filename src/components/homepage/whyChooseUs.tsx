@@ -38,7 +38,7 @@ export default function WhyChooseUs() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {features.map((feature, index) => (
+          {features?.map((feature, index) => (
             <div
               key={index}
               className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-4 p-6 rounded-2xl hover:bg-slate-50 transition-colors group"

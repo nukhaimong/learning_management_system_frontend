@@ -41,8 +41,8 @@ const AdminDashboard = async () => {
     (acc, curr) => acc + (curr.payment?.amount || 0),
     0,
   );
-  const totalCourses = courses.length;
-  const totalUsers = enrollments.length; // Simplified as total unique enrollments for this view
+  const totalCourses = courses?.length;
+  const totalUsers = enrollments?.length; // Simplified as total unique enrollments for this view
   const completedTransactions = enrollments.filter(
     (e) => e.payment !== null,
   ).length;
@@ -116,24 +116,24 @@ const AdminDashboard = async () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-sm">
-                  {enrollments.slice(0, 8).map((enrollment) => (
+                  {enrollments?.slice(0, 8).map((enrollment) => (
                     <tr
                       key={enrollment.id}
                       className="hover:bg-slate-50/80 transition-colors"
                     >
                       <td className="p-4">
                         <p className="font-bold text-slate-800">
-                          {enrollment.learner.name}
+                          {enrollment?.learner.name}
                         </p>
                         <p className="text-[10px] text-slate-400">
-                          {enrollment.learner.email}
+                          {enrollment?.learner.email}
                         </p>
                       </td>
                       <td className="p-4 font-medium text-slate-600 truncate max-w-[200px]">
-                        {enrollment.course.title}
+                        {enrollment?.course.title}
                       </td>
                       <td className="p-4 font-black text-slate-900">
-                        ৳{enrollment.payment?.amount || 0}
+                        ৳{enrollment?.payment?.amount || 0}
                       </td>
                       <td className="p-4 text-center">
                         <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-black uppercase">

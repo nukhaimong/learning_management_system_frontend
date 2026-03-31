@@ -125,7 +125,7 @@ export const ModulesList = ({ modules, courseId }: ModulesListProps) => {
         Course Modules
       </h2>
 
-      {modules.length === 0 && (
+      {modules?.length === 0 && (
         <div className="text-center py-6 border-2 border-dashed rounded-lg">
           <p className="text-sm text-muted-foreground italic">
             No modules created yet.
@@ -134,7 +134,7 @@ export const ModulesList = ({ modules, courseId }: ModulesListProps) => {
       )}
 
       <div className="space-y-3">
-        {modules.map((module) => (
+        {modules?.map((module) => (
           <div
             key={module.id}
             className="p-4 border rounded-lg flex flex-col md:flex-row md:items-center justify-between hover:bg-slate-50 transition-colors group"
