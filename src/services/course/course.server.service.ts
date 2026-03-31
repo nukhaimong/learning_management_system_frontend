@@ -54,6 +54,32 @@ export const getCourseById = async (course_id: string) => {
     return { error: { message: 'Failed to fetch course' } };
   }
 };
+
+export const getCoursesByInstructorId = async () => {
+  const cookieStore = await cookies();
+  try {
+    const response = await fetch(`${API_URL}/course/instructor`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Cookie: cookieStore.toString(),
+      },
+      cache: 'no-cache',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { error: { message: data.message } };
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching enrollments:', error);
+    return { error: { message: 'Failed to fetch enrollments' } };
+  }
+};
+
 export const getFavoritesByLearnerId = async () => {
   const cookieStore = await cookies();
   try {
@@ -78,6 +104,7 @@ export const getFavoritesByLearnerId = async () => {
     return { error: { message: 'Failed to fetch favorites' } };
   }
 };
+
 export const getCoursesByCategory = async (category_id: string) => {
   const cookieStore = await cookies();
   try {
@@ -102,6 +129,7 @@ export const getCoursesByCategory = async (category_id: string) => {
     return { error: { message: 'Failed to fetch courses by category' } };
   }
 };
+
 export const getModules = async (course_id: string) => {
   const cookieStore = await cookies();
   try {

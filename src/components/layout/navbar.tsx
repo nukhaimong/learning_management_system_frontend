@@ -4,21 +4,19 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search, Menu, X, ArrowRight } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import SearchBar from './searchBar';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchFocused, setSearchFocused] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'Explore', href: '/explore' },
-    { name: 'Categories', href: '/categories' },
+    { name: 'contact us', href: '/contact-us' },
     { name: 'Dashboard', href: '/dashboard' },
   ];
 
