@@ -30,22 +30,24 @@ export default function Footer() {
   return (
     <footer className="bg-slate-950 text-slate-400 pt-20 pb-10">
       <div className="container mx-auto px-4">
-        {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+        {/* Main Footer Grid - Only Brand and Contact Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 max-w-4xl mx-auto">
           {/* Column 1: Brand & Mission */}
-          <div className="space-y-6">
-            <Link
-              href="/"
-              className="flex items-center gap-2 text-white font-bold text-3xl tracking-tight"
-            >
-              <GraduationCap className="h-9 w-9 text-indigo-500" />
-              <span>Jekono</span>
-            </Link>
-            <p className="text-sm leading-relaxed max-w-xs">
+          <div className="space-y-6 text-center md:text-left">
+            <div className="flex justify-center md:justify-start">
+              <Link
+                href="/"
+                className="flex items-center gap-2 text-white font-bold text-3xl tracking-tight"
+              >
+                <GraduationCap className="h-9 w-9 text-indigo-500" />
+                <span>Jekono</span>
+              </Link>
+            </div>
+            <p className="text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
               Building the next generation of developers and creators in
               Bangladesh with affordable, expert-led online education.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 justify-center md:justify-start">
               <Link
                 href="#"
                 className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 border border-slate-800 hover:bg-blue-600 hover:text-white hover:border-blue-500 transition-all"
@@ -73,103 +75,21 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Platform Links */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold text-sm uppercase tracking-widest border-l-2 border-indigo-500 pl-3">
-              Platform
-            </h4>
-            <ul className="space-y-4 text-sm font-medium">
-              <li>
-                <Link
-                  href="/explore"
-                  className="hover:text-indigo-400 transition-colors flex items-center gap-2"
-                >
-                  Browse Courses <ExternalLink className="w-3 h-3" />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/signup"
-                  className="hover:text-indigo-400 transition-colors"
-                >
-                  Become an Instructor
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dashboard"
-                  className="hover:text-indigo-400 transition-colors"
-                >
-                  Student Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/faq"
-                  className="hover:text-indigo-400 transition-colors"
-                >
-                  Help & Support
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 3: Top Categories */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold text-sm uppercase tracking-widest border-l-2 border-indigo-500 pl-3">
-              Top Categories
-            </h4>
-            <ul className="space-y-4 text-sm font-medium">
-              <li>
-                <Link
-                  href="/explore?category=web-development"
-                  className="hover:text-indigo-400 transition-colors"
-                >
-                  Web Development
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/explore?category=data-science"
-                  className="hover:text-indigo-400 transition-colors"
-                >
-                  Data Science
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/explore?category=business"
-                  className="hover:text-indigo-400 transition-colors"
-                >
-                  Business Strategy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/explore?category=design"
-                  className="hover:text-indigo-400 transition-colors"
-                >
-                  Graphic Design
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 4: Contact Details */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold text-sm uppercase tracking-widest border-l-2 border-indigo-500 pl-3">
+          {/* Column 2: Contact Details Only */}
+          <div className="space-y-6 text-center md:text-left">
+            <h4 className="text-white font-bold text-sm uppercase tracking-widest border-l-2 border-indigo-500 pl-3 inline-block md:inline-block">
               Contact
             </h4>
             <ul className="space-y-5 text-sm">
-              <li className="flex items-start gap-3">
+              <li className="flex items-center gap-3 justify-center md:justify-start">
                 <Mail className="w-5 h-5 text-indigo-500 shrink-0" />
                 <span className="break-all">hello@jekono.com</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-center gap-3 justify-center md:justify-start">
                 <Phone className="w-5 h-5 text-indigo-500 shrink-0" />
                 <span>+880 1234-567890</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-center gap-3 justify-center md:justify-start">
                 <MapPin className="w-5 h-5 text-indigo-500 shrink-0" />
                 <span>Chittagong, Bangladesh</span>
               </li>
@@ -177,29 +97,12 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="pt-10 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
+        {/* Bottom Section - Just copyright */}
+        <div className="pt-10 border-t border-slate-900 text-center">
           <p className="text-xs font-medium uppercase tracking-widest">
             © {currentYear} <span className="text-white">Jekono LMS</span>. Made
             with ❤️ in Bangladesh.
           </p>
-          <div className="flex gap-8 text-[10px] font-bold uppercase tracking-tighter">
-            <Link
-              href="/privacy"
-              className="hover:text-white transition-colors"
-            >
-              Privacy
-            </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
-              Terms
-            </Link>
-            <Link
-              href="/cookies"
-              className="hover:text-white transition-colors"
-            >
-              Cookies
-            </Link>
-          </div>
         </div>
       </div>
     </footer>
