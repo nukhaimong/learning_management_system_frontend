@@ -45,6 +45,32 @@ export const courseService = {
       return { error: { message: 'Failed to fetch courses' } };
     }
   },
+  getCourseById: async (course_id: string) => {
+    try {
+      const response = await fetch(
+        `${NEXT_PUBLIC_API_URL}/course/${course_id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          cache: 'no-cache',
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: { message: data.message } };
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+      return { error: { message: 'Failed to fetch courses' } };
+    }
+  },
   updateCourse: async (course_id: string, formData: FormData) => {
     try {
       const response = await fetch(

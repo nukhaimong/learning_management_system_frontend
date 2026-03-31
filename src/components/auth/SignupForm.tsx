@@ -58,7 +58,7 @@ export default function SignupForm() {
   });
 
   return (
-    <div className="max-w-md mx-auto mt-20 p-6 border rounded-xl shadow-sm">
+    <div className="max-w-md mx-auto mt-20 p-6 border rounded-xl shadow-sm mb-20">
       <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
 
       <form
