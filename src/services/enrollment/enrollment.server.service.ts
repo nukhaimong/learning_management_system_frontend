@@ -49,3 +49,28 @@ export const getEnrollmentById = async (enrollment_id: string) => {
     return { error: { message: 'Failed to fetch enrollment' } };
   }
 };
+
+export const getAllEnrollments = async () => {
+  const cookieStore = await cookies();
+  try {
+    const response = await fetch(`${API_URL}/enrollment/all-enrollments`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Cookie: cookieStore.toString(),
+      },
+      cache: 'no-cache',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { error: { message: data.message } };
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching enrollments:', error);
+    return { error: { message: 'Failed to fetch enrollments' } };
+  }
+};
