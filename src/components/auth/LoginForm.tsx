@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { authService } from '@/services/auth/auth.service';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 // Zod schema
 const loginSchema = z.object({
@@ -110,6 +111,11 @@ export default function LoginForm() {
             </div>
           )}
         </form.Field>
+        <Link href="/forgot-password">
+          <p className="text-sm text-muted-foreground hover:text-primary transition-colors mb-4">
+            Forgot your password?
+          </p>
+        </Link>
 
         {/* SUBMIT */}
         <Button
