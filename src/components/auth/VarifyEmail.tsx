@@ -44,6 +44,7 @@ export default function VerifyEmailForm() {
 
         toast.success(verify.message, { id: toastId });
         router.push('/');
+        router.refresh();
       } catch (error) {
         console.error('Verification error:', error);
         toast.error('Internal Server Error', { id: toastId });

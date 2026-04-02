@@ -10,7 +10,7 @@ export const getMe = async () => {
         'Content-Type': 'application/json',
         Cookie: cookieStore.toString(),
       },
-      cache: 'no-cache',
+      cache: 'no-store',
     });
     const data = await res.json();
     if (!res.ok) {

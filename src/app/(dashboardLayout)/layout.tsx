@@ -1,9 +1,11 @@
-// app/(dashboard)/layout.tsx
 import { AppSidebar } from '@/components/layout/appSideBar';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { Role } from '@/constants';
 import { adminRoutes, instructorRoutes, LearnerRoutes } from '@/routes/routes';
 import { getMe } from '@/services/auth/auth.server.service';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function DashboardLayout({
   children,

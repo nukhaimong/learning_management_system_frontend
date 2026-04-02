@@ -53,6 +53,7 @@ export default function LoginForm() {
         // }
         toast.success(login.message, { id: toastId });
         router.push('/');
+        router.refresh();
       } catch (error) {
         console.log('Internal Server Error: ', error);
       }
