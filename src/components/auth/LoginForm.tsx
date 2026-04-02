@@ -43,7 +43,7 @@ export default function LoginForm() {
           return;
         }
         if (login.error) {
-          toast.error(login.error.message || 'hedar error', { id: toastId });
+          toast.error(login.error.message, { id: toastId });
           return;
         }
         // if (login.data.emailVerified !== true) {

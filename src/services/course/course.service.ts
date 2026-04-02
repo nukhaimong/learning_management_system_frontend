@@ -244,7 +244,6 @@ export const courseService = {
       return { error: { message: 'Failed to update module' } };
     }
   },
-
   deleteModule: async (module_id: string) => {
     try {
       const response = await fetch(
@@ -358,6 +357,30 @@ export const courseService = {
     } catch (error) {
       console.error('Error deleting lecture:', error);
       return { error: { message: 'Deleting Lecture Failed' } };
+    }
+  },
+  createReviews: async (course_id: string, content: string) => {
+    try {
+      const response = await fetch(`${NEXT_PUBLIC_API_URL}/reviews`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ course_id, content }),
+        credentials: 'include',
+        cache: 'no-cache',
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: { message: data.message } };
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error creating reviews:', error);
+      return { error: { message: 'Creating reviews Failed' } };
     }
   },
 };

@@ -1,5 +1,12 @@
-import Link from 'next/link';
-import { GraduationCap, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import {
+  GraduationCap,
+  Mail,
+  Phone,
+  MapPin,
+  Users,
+  BookOpen,
+  Send,
+} from 'lucide-react';
 
 const SocialIcons = {
   Facebook: () => (
@@ -30,54 +37,39 @@ export default function Footer() {
   return (
     <footer className="bg-slate-950 text-slate-400 pt-20 pb-10">
       <div className="container mx-auto px-4">
-        {/* Main Footer Grid - Only Brand and Contact Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 max-w-4xl mx-auto">
-          {/* Column 1: Brand & Mission */}
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20 max-w-6xl mx-auto">
+          {/* Column 1: Brand & Socials */}
           <div className="space-y-6 text-center md:text-left">
             <div className="flex justify-center md:justify-start">
-              <Link
-                href="/"
-                className="flex items-center gap-2 text-white font-bold text-3xl tracking-tight"
-              >
+              <div className="flex items-center gap-2 text-white font-bold text-3xl tracking-tight">
                 <GraduationCap className="h-9 w-9 text-indigo-500" />
                 <span>Jekono</span>
-              </Link>
+              </div>
             </div>
             <p className="text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
               Building the next generation of developers and creators in
               Bangladesh with affordable, expert-led online education.
             </p>
             <div className="flex items-center gap-3 justify-center md:justify-start">
-              <Link
-                href="#"
-                className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 border border-slate-800 hover:bg-blue-600 hover:text-white hover:border-blue-500 transition-all"
-              >
+              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 border border-slate-800 hover:bg-blue-600 hover:text-white hover:border-blue-500 transition-all cursor-pointer">
                 <SocialIcons.Facebook />
-              </Link>
-              <Link
-                href="#"
-                className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 hover:text-white transition-all"
-              >
+              </div>
+              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 hover:text-white transition-all cursor-pointer">
                 <SocialIcons.TwitterX />
-              </Link>
-              <Link
-                href="#"
-                className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 border border-slate-800 hover:bg-blue-700 hover:text-white hover:border-blue-600 transition-all"
-              >
+              </div>
+              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 border border-slate-800 hover:bg-blue-700 hover:text-white transition-all cursor-pointer">
                 <SocialIcons.Linkedin />
-              </Link>
-              <Link
-                href="#"
-                className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-700 hover:text-white transition-all"
-              >
+              </div>
+              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-700 hover:text-white transition-all cursor-pointer">
                 <SocialIcons.Github />
-              </Link>
+              </div>
             </div>
           </div>
 
-          {/* Column 2: Contact Details Only */}
+          {/* Column 2: Contact Details */}
           <div className="space-y-6 text-center md:text-left">
-            <h4 className="text-white font-bold text-sm uppercase tracking-widest border-l-2 border-indigo-500 pl-3 inline-block md:inline-block">
+            <h4 className="text-white font-bold text-sm uppercase tracking-widest border-l-2 border-indigo-500 pl-3 inline-block">
               Contact
             </h4>
             <ul className="space-y-5 text-sm">
@@ -95,9 +87,57 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+
+          {/* Column 3: Quick Stats (NEW SECTION) */}
+          <div className="space-y-6 text-center md:text-left">
+            <h4 className="text-white font-bold text-sm uppercase tracking-widest border-l-2 border-indigo-500 pl-3 inline-block">
+              Our Impact
+            </h4>
+            <div className="grid grid-cols-1 gap-4">
+              <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800/50">
+                <div className="flex items-center gap-3 justify-center md:justify-start mb-1">
+                  <Users className="w-4 h-4 text-indigo-400" />
+                  <span className="text-white font-bold text-lg">15,000+</span>
+                </div>
+                <p className="text-xs">Active Learners</p>
+              </div>
+              <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800/50">
+                <div className="flex items-center gap-3 justify-center md:justify-start mb-1">
+                  <BookOpen className="w-4 h-4 text-indigo-400" />
+                  <span className="text-white font-bold text-lg">120+</span>
+                </div>
+                <p className="text-xs">Expert Courses</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 4: Newsletter (NEW SECTION) */}
+          <div className="space-y-6 text-center md:text-left">
+            <h4 className="text-white font-bold text-sm uppercase tracking-widest border-l-2 border-indigo-500 pl-3 inline-block">
+              Stay Updated
+            </h4>
+            <p className="text-xs leading-relaxed">
+              Get the latest course updates and tech news delivered to your
+              inbox.
+            </p>
+            <div className="relative group">
+              <input
+                type="email"
+                placeholder="email@example.com"
+                className="w-full bg-slate-900 border border-slate-800 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                disabled
+              />
+              <button className="absolute right-2 top-2 bottom-2 bg-indigo-600 text-white px-3 rounded-md hover:bg-indigo-500 transition-colors cursor-not-allowed">
+                <Send className="w-4 h-4" />
+              </button>
+            </div>
+            <p className="text-[10px] text-slate-500 italic">
+              No spam, just quality learning content.
+            </p>
+          </div>
         </div>
 
-        {/* Bottom Section - Just copyright */}
+        {/* Bottom Section */}
         <div className="pt-10 border-t border-slate-900 text-center">
           <p className="text-xs font-medium uppercase tracking-widest">
             © {currentYear} <span className="text-white">Jekono LMS</span>. Made

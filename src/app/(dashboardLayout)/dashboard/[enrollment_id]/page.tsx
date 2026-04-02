@@ -1,4 +1,5 @@
 import CourseContent from '@/components/course/courseContent';
+import { ReviewForm } from '@/components/course/createReviews';
 import LecturePlayerWrapper from '@/components/lecture/lecturePlayerWrapper';
 import { getEnrollmentById } from '@/services/enrollment/enrollment.server.service';
 import { Enrollment } from '@/types';
@@ -34,6 +35,9 @@ const EnrollmentPage = async ({
         {/* Left Side - Video Player */}
         <div className="flex-1 flex flex-col">
           <LecturePlayerWrapper modules={enrollment.course.modules} />
+          <div className="mt-10 ">
+            <ReviewForm courseId={enrollment.course.id} />
+          </div>
         </div>
 
         {/* Right Side - Modules & Lectures */}
