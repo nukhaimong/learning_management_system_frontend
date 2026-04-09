@@ -161,8 +161,8 @@ export const authService = {
       }
 
       if (res.ok && result.data.token) {
-        Cookies.set('better-auth.session_token', result.data.token, {
-          expires: 7, // 7 days
+        Cookies.set('session_token', result.data.token, {
+          expires: 7,
           secure: true,
           sameSite: 'none',
           path: '/',
