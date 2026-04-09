@@ -1,5 +1,5 @@
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
-
+import Cookies from 'js-cookie';
 interface SignupPayload {
   name: string;
   email: string;
@@ -8,29 +8,29 @@ interface SignupPayload {
 }
 
 export const authService = {
-  login: async (email: string, password: string) => {
-    try {
-      const res = await fetch(`${NEXT_PUBLIC_API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        return { error: { message: data.message || 'something went wrong' } };
-      }
-      return data;
-    } catch (error) {
-      console.error('something went wrong: ', error);
-      return { error: { message: 'Internal Server Error' } };
-    }
-  },
+  // login: async (email: string, password: string) => {
+  //   try {
+  //     const res = await fetch(`${NEXT_PUBLIC_API_URL}/auth/login`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       credentials: 'include',
+  //       body: JSON.stringify({
+  //         email,
+  //         password,
+  //       }),
+  //     });
+  //     const data = await res.json();
+  //     if (!res.ok) {
+  //       return { error: { message: data.message || 'something went wrong' } };
+  //     }
+  //     return data;
+  //   } catch (error) {
+  //     console.error('something went wrong: ', error);
+  //     return { error: { message: 'Internal Server Error' } };
+  //   }
+  // },
   signup: async (payload: SignupPayload) => {
     try {
       const res = await fetch(`${NEXT_PUBLIC_API_URL}/auth/registration`, {
@@ -133,6 +133,30 @@ export const authService = {
     } catch (error) {
       console.error('something went wrong: ', error);
       return { error: { message: 'Internal Server Error' } };
+    }
+  },
+  login: async (email: string, password: string) => {
+    try {
+      const res = await fetch(`${NEXT_PUBLIC_API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const result = await res.json();
+
+      if (res.ok && result.data.token) {
+        Cookies.set('better-auth.session_token', result.data.token, {
+          expires: 7, // 7 days
+          secure: true,
+          sameSite: 'lax',
+          path: '/',
+        });
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Login error:', error);
     }
   },
 };
