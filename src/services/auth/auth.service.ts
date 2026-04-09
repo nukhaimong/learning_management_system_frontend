@@ -61,11 +61,22 @@ export const authService = {
         body: JSON.stringify({ email, otp }),
         credentials: 'include',
       });
-      const data = await res.json();
+      const result = await res.json();
+
       if (!res.ok) {
-        return { error: { message: data.message || 'Something went wrong' } };
+        return { error: { message: result.message || 'Something went wrong' } };
       }
-      return data;
+
+      if (res.ok && result.data.token) {
+        Cookies.set('better-auth.session_token', result.data.token, {
+          expires: 7, // 7 days
+          secure: true,
+          sameSite: 'none',
+          path: '/',
+        });
+      }
+
+      return result;
     } catch (error) {
       console.error('something went wrong: ', error);
       return { error: { message: 'Internal Server Error' } };
@@ -145,11 +156,15 @@ export const authService = {
 
       const result = await res.json();
 
+      if (!res.ok) {
+        return { error: { message: result.message || 'Something went wrong' } };
+      }
+
       if (res.ok && result.data.token) {
         Cookies.set('better-auth.session_token', result.data.token, {
           expires: 7, // 7 days
           secure: true,
-          sameSite: 'lax',
+          sameSite: 'none',
           path: '/',
         });
       }
