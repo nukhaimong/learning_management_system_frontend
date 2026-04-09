@@ -1,6 +1,3 @@
-import { resetPassword } from 'better-auth/api';
-import { error } from 'console';
-
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface SignupPayload {
