@@ -111,3 +111,10 @@ export interface Favorite {
     publishedAt: Date;
   };
 }
+
+export interface SignupPayload {
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+}

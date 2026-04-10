@@ -33,6 +33,7 @@ export const categoryService = {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         credentials: 'include',
         cache: 'no-cache',
@@ -54,6 +55,7 @@ export const categoryService = {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
           credentials: 'include',
           body: JSON.stringify({ title }),
@@ -77,6 +79,7 @@ export const categoryService = {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
           credentials: 'include',
           cache: 'no-cache',

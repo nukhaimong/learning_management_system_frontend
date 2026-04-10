@@ -5,10 +5,6 @@ export const getMe = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get('better-auth.session_token')?.value;
 
-  if (!token) {
-    return { error: { message: 'No token found' } };
-  }
-
   try {
     const res = await fetch(`${API_URL}/auth/get-me`, {
       method: 'GET',

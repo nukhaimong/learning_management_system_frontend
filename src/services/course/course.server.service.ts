@@ -57,12 +57,15 @@ export const getCourseById = async (course_id: string) => {
 
 export const getCoursesByInstructorId = async () => {
   const cookieStore = await cookies();
+  const token = cookieStore.get('better-auth.session_token')?.value;
+
   try {
     const response = await fetch(`${API_URL}/course/instructor`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Cookie: cookieStore.toString(),
+        //Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${token}`,
       },
       cache: 'no-cache',
     });
@@ -82,12 +85,15 @@ export const getCoursesByInstructorId = async () => {
 
 export const getFavoritesByLearnerId = async () => {
   const cookieStore = await cookies();
+  const token = cookieStore.get('better-auth.session_token')?.value;
+
   try {
     const response = await fetch(`${API_URL}/favorites`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Cookie: cookieStore.toString(),
+        //Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${token}`,
       },
       cache: 'no-cache',
     });
@@ -107,12 +113,14 @@ export const getFavoritesByLearnerId = async () => {
 
 export const getCoursesByCategory = async (category_id: string) => {
   const cookieStore = await cookies();
+  const token = cookieStore.get('better-auth.session_token')?.value;
   try {
     const response = await fetch(`${API_URL}/course/category/${category_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Cookie: cookieStore.toString(),
+        //Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${token}`,
       },
       next: { revalidate: 60 },
     });
@@ -132,12 +140,15 @@ export const getCoursesByCategory = async (category_id: string) => {
 
 export const getModules = async (course_id: string) => {
   const cookieStore = await cookies();
+  const token = cookieStore.get('better-auth.session_token')?.value;
+
   try {
     const response = await fetch(`${API_URL}/module/${course_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Cookie: cookieStore.toString(),
+        //Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${token}`,
       },
       next: {
         tags: ['modules'],
@@ -159,12 +170,14 @@ export const getModules = async (course_id: string) => {
 
 export const getLectures = async (module_id: string) => {
   const cookieStore = await cookies();
+  const token = cookieStore.get('better-auth.session_token')?.value;
   try {
     const response = await fetch(`${API_URL}/lecture/${module_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Cookie: cookieStore.toString(),
+        //Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${token}`,
       },
       next: {
         tags: ['modules'],

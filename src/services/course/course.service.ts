@@ -1,11 +1,18 @@
+import Cookies from 'js-cookie';
+
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+const token = Cookies.get('better-auth.session_token');
 
 export const courseService = {
   createCourse: async (formData: FormData) => {
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/course`, {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         credentials: 'include',
+
         body: formData,
         cache: 'no-cache',
       });
@@ -28,6 +35,7 @@ export const courseService = {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         credentials: 'include',
         cache: 'no-cache',
@@ -53,6 +61,7 @@ export const courseService = {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
           credentials: 'include',
           cache: 'no-cache',
@@ -77,6 +86,9 @@ export const courseService = {
         `${NEXT_PUBLIC_API_URL}/course/update/${course_id}`,
         {
           method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           credentials: 'include',
           body: formData,
           cache: 'no-cache',
@@ -101,6 +113,9 @@ export const courseService = {
         `${NEXT_PUBLIC_API_URL}/course/delete/${course_id}`,
         {
           method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           credentials: 'include',
           cache: 'no-cache',
         },
@@ -124,6 +139,7 @@ export const courseService = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ course_id }),
         credentials: 'include',
@@ -148,6 +164,7 @@ export const courseService = {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ course_id }),
         credentials: 'include',
@@ -172,6 +189,7 @@ export const courseService = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         credentials: 'include',
         body: JSON.stringify({ title, course_id }),
@@ -198,6 +216,7 @@ export const courseService = {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
           credentials: 'include',
           body: JSON.stringify({ title }),
@@ -225,6 +244,7 @@ export const courseService = {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
           credentials: 'include',
           body: JSON.stringify({ title }),
@@ -250,6 +270,9 @@ export const courseService = {
         `${NEXT_PUBLIC_API_URL}/module/delete/${module_id}`,
         {
           method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           credentials: 'include',
           cache: 'no-cache',
         },
@@ -271,6 +294,9 @@ export const courseService = {
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/lecture`, {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         credentials: 'include',
         body: formData,
         cache: 'no-cache',
@@ -294,6 +320,9 @@ export const courseService = {
         `${NEXT_PUBLIC_API_URL}/lecture/${lecture_id}`,
         {
           method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           credentials: 'include',
           body: formData,
           cache: 'no-cache',
@@ -318,6 +347,9 @@ export const courseService = {
         `${NEXT_PUBLIC_API_URL}/lecture/update/${lecture_id}`,
         {
           method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           credentials: 'include',
           body: formData,
           cache: 'no-cache',
@@ -342,6 +374,9 @@ export const courseService = {
         `${NEXT_PUBLIC_API_URL}/lecture/delete/${lecture_id}`,
         {
           method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           credentials: 'include',
           cache: 'no-cache',
         },
@@ -365,6 +400,7 @@ export const courseService = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ course_id, content }),
         credentials: 'include',

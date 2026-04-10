@@ -1,11 +1,8 @@
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { SignupPayload } from '@/types';
 import Cookies from 'js-cookie';
-interface SignupPayload {
-  name: string;
-  email: string;
-  password: string;
-  role: string;
-}
+
+const token = Cookies.get('better-auth.session_token');
 
 export const authService = {
   // login: async (email: string, password: string) => {
@@ -88,6 +85,7 @@ export const authService = {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         credentials: 'include',
         cache: 'no-cache',
