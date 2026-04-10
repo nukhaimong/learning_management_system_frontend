@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useParams, useRouter } from 'next/navigation';
 import { courseService } from '@/services/course/course.service';
-import { useRef } from 'react';
+import { useRef } from 'react'; // Add this import
 
 const lectureSchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters'),
@@ -17,8 +17,8 @@ const lectureSchema = z.object({
 type LectureFormData = z.infer<typeof lectureSchema>;
 
 interface CreateLectureFormProps {
-  targetLectureId?: string; // If provided, we insert after this ID
-  onSuccess?: () => void; // Callback to close popups
+  targetLectureId?: string;
+  onSuccess?: () => void;
 }
 
 export default function CreateLectureForm({
@@ -29,6 +29,7 @@ export default function CreateLectureForm({
   const params = useParams();
   const moduleId = params.module_id as string;
 
+  // Create a ref for the file input
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const form = useForm({
@@ -56,7 +57,6 @@ export default function CreateLectureForm({
         formData.append('data', JSON.stringify(metaData));
         formData.append('video_url', value.video_url);
 
-        // Logic switch: Call insertLecture if targetLectureId exists
         const res = targetLectureId
           ? await courseService.insertLecture(targetLectureId, formData)
           : await courseService.createLecture(formData);
@@ -70,14 +70,16 @@ export default function CreateLectureForm({
           targetLectureId ? 'Lecture inserted!' : 'Lecture created!',
           { id: toastId },
         );
+
+        // Reset form
         form.reset();
 
+        // Manually clear the file input
         if (fileInputRef.current) {
           fileInputRef.current.value = '';
         }
 
         router.refresh();
-
         if (onSuccess) onSuccess();
       } catch (error) {
         toast.error('Upload failed', { id: toastId });
@@ -121,6 +123,7 @@ export default function CreateLectureForm({
             <div className="space-y-1">
               <label className="text-sm font-medium">Video File</label>
               <Input
+                ref={fileInputRef} // Attach the ref here
                 type="file"
                 accept="video/*"
                 onChange={(e) => {
