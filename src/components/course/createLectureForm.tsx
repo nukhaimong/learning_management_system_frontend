@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useParams, useRouter } from 'next/navigation';
 import { courseService } from '@/services/course/course.service';
+import { useRef } from 'react';
 
 const lectureSchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters'),
@@ -27,6 +28,8 @@ export default function CreateLectureForm({
   const router = useRouter();
   const params = useParams();
   const moduleId = params.module_id as string;
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const form = useForm({
     defaultValues: {
@@ -67,10 +70,15 @@ export default function CreateLectureForm({
           targetLectureId ? 'Lecture inserted!' : 'Lecture created!',
           { id: toastId },
         );
-
         form.reset();
+
         router.refresh();
-        if (onSuccess) onSuccess(); // Close the modal/popup
+
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
+
+        if (onSuccess) onSuccess();
       } catch (error) {
         toast.error('Upload failed', { id: toastId });
       }
