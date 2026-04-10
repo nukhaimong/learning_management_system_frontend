@@ -1,6 +1,7 @@
-import { de } from 'zod/v4/locales';
+import Cookies from 'js-cookie';
 
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+const token = Cookies.get('better-auth.session_token');
 
 export const categoryService = {
   createCategory: async (title: string) => {
@@ -9,12 +10,15 @@ export const categoryService = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         credentials: 'include',
         body: JSON.stringify({ title }),
+
         cache: 'no-cache',
       });
       const data = await res.json();
+      console.log(token);
       if (!res.ok) {
         return { error: { message: data.message } };
       }

@@ -3,27 +3,24 @@ const API_URL = process.env.API_URL;
 
 export const getMe = async () => {
   const cookieStore = await cookies();
+  const token = cookieStore.get('better-auth.session_token')?.value;
+
+  if (!token) {
+    return { error: { message: 'No token found' } };
+  }
+
   try {
     const res = await fetch(`${API_URL}/auth/get-me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${token}`,
       },
       cache: 'no-store',
     });
-    const data = await res.json();
-    if (!res.ok) {
-      return {
-        error: {
-          message: data.message || 'Something went wrong to get user',
-        },
-      };
-    }
 
-    return data;
+    return await res.json();
   } catch (error) {
-    console.error('Internal Server Error: ', error);
-    return { error: { message: 'Internal Server Error: ', error } };
+    return { error: { message: 'Network error' } };
   }
 };
