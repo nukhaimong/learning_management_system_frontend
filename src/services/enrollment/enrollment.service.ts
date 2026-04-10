@@ -1,6 +1,7 @@
-import { en } from 'zod/v4/locales';
+import Cookies from 'js-cookie';
 
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+const token = Cookies.get('better-auth.session_token');
 
 export const enrollmentService = {
   enrollInCourse: async (course_id: string) => {
@@ -9,6 +10,9 @@ export const enrollmentService = {
         `${NEXT_PUBLIC_API_URL}/enrollment/${course_id}`,
         {
           method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           credentials: 'include',
           cache: 'no-cache',
         },

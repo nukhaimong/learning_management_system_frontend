@@ -3,12 +3,14 @@ const API_URL = process.env.API_URL;
 
 export const getEnrollmetsByLearnerId = async () => {
   const cookieStore = await cookies();
+  const token = cookieStore.get('better-auth.session_token')?.value;
   try {
     const response = await fetch(`${API_URL}/enrollment`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Cookie: cookieStore.toString(),
+        //Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${token}`,
       },
       cache: 'no-cache',
     });
@@ -28,12 +30,14 @@ export const getEnrollmetsByLearnerId = async () => {
 
 export const getEnrollmentById = async (enrollment_id: string) => {
   const cookieStore = await cookies();
+  const token = cookieStore.get('better-auth.session_token')?.value;
   try {
     const res = await fetch(`${API_URL}/enrollment/${enrollment_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Cookie: cookieStore.toString(),
+        //Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${token}`,
       },
       cache: 'no-cache',
     });
@@ -52,12 +56,14 @@ export const getEnrollmentById = async (enrollment_id: string) => {
 
 export const getAllEnrollments = async () => {
   const cookieStore = await cookies();
+  const token = cookieStore.get('better-auth.session_token')?.value;
   try {
     const response = await fetch(`${API_URL}/enrollment/all-enrollments`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Cookie: cookieStore.toString(),
+        //Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${token}`,
       },
       cache: 'no-cache',
     });

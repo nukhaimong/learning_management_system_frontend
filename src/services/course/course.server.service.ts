@@ -3,6 +3,7 @@ const API_URL = process.env.API_URL;
 
 export const getCourses = async (searchTerm?: string) => {
   const cookieStore = await cookies();
+  const token = cookieStore.get('better-auth.session_token')?.value;
   try {
     const response = await fetch(
       `${API_URL}/course${searchTerm ? `?searchTerm=${searchTerm}` : ''}`,
@@ -11,9 +12,9 @@ export const getCourses = async (searchTerm?: string) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Cookie: cookieStore.toString(),
+          //Cookie: cookieStore.toString(),
+          Authorization: `Bearer ${token}`,
         },
-        next: { revalidate: 60 },
       },
     );
 
@@ -32,12 +33,14 @@ export const getCourses = async (searchTerm?: string) => {
 
 export const getCourseById = async (course_id: string) => {
   const cookieStore = await cookies();
+  const token = cookieStore.get('better-auth.session_token')?.value;
   try {
     const response = await fetch(`${API_URL}/course/${course_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Cookie: cookieStore.toString(),
+        //Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${token}`,
       },
       cache: 'no-cache',
     });
