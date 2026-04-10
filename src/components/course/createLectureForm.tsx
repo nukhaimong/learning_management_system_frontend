@@ -72,11 +72,11 @@ export default function CreateLectureForm({
         );
         form.reset();
 
-        router.refresh();
-
         if (fileInputRef.current) {
           fileInputRef.current.value = '';
         }
+
+        router.refresh();
 
         if (onSuccess) onSuccess();
       } catch (error) {
