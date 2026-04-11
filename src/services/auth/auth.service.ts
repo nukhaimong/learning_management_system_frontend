@@ -2,8 +2,6 @@ const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 import { SignupPayload } from '@/types';
 import Cookies from 'js-cookie';
 
-const token = Cookies.get('better-auth.session_token');
-
 export const authService = {
   // login: async (email: string, password: string) => {
   //   try {
@@ -58,6 +56,7 @@ export const authService = {
         body: JSON.stringify({ email, otp }),
         credentials: 'include',
       });
+
       const result = await res.json();
 
       if (!res.ok) {
@@ -80,6 +79,7 @@ export const authService = {
     }
   },
   getMe: async () => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const res = await fetch(`${NEXT_PUBLIC_API_URL}/auth/get-me`, {
         method: 'GET',

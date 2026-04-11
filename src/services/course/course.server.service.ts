@@ -31,6 +31,32 @@ export const getCourses = async (searchTerm?: string) => {
   }
 };
 
+export const getFreeCourses = async () => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('better-auth.session_token')?.value;
+  try {
+    const response = await fetch(`${API_URL}/course/free-courses}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        //Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { error: { message: data.message } };
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching free courses:', error);
+    return { error: { message: 'Failed to fetch free courses' } };
+  }
+};
+
 export const getCourseById = async (course_id: string) => {
   const cookieStore = await cookies();
   const token = cookieStore.get('better-auth.session_token')?.value;

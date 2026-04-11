@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { BookOpen, Clock, Star, Trash2, Loader2 } from 'lucide-react';
+import { BookOpen, Clock, Trash2, Loader2 } from 'lucide-react';
 import { Favorite } from '@/types';
 import { courseService } from '@/services/course/course.service';
 import { toast } from 'sonner';
@@ -43,16 +43,16 @@ const FavoriteCard = ({ favorite, onDelete }: FavoriteCardProps) => {
   };
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow">
+    <div className="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow group">
       {/* Course Thumbnail */}
       <Link href={`/course/${favorite.course.id}`}>
-        <div className="relative aspect-video bg-slate-100 cursor-pointer">
+        <div className="relative aspect-video bg-slate-100 cursor-pointer overflow-hidden">
           {favorite.course.thumbnail ? (
             <Image
               src={favorite.course.thumbnail}
               alt={favorite.course.title}
               fill
-              className="object-cover"
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
@@ -76,15 +76,11 @@ const FavoriteCard = ({ favorite, onDelete }: FavoriteCardProps) => {
           {favorite.course.description || 'No description available'}
         </p>
 
-        {/* Meta Info */}
+        {/* Meta Info - Rating REMOVED */}
         <div className="flex items-center gap-3 mb-3 text-xs text-slate-500">
           <span className="flex items-center gap-1">
             <Clock className="w-3 h-3" />
             {favorite.course.level || 'Beginner'}
-          </span>
-          <span className="flex items-center gap-1">
-            <Star className="w-3 h-3" />
-            4.5
           </span>
         </div>
 
@@ -107,17 +103,24 @@ const FavoriteCard = ({ favorite, onDelete }: FavoriteCardProps) => {
           >
             Get Started
           </Link>
+
+          {/* Improved Delete Button */}
           <button
             onClick={handleDelete}
             disabled={isDeleting}
-            className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-4 py-2 bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700 text-sm font-medium rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 border border-red-200 hover:border-red-300"
           >
             {isDeleting ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>Removing...</span>
+              </>
             ) : (
-              <Trash2 className="w-6 h-6 text-red-600" />
+              <>
+                <Trash2 className="w-4 h-4" />
+                <span>Remove</span>
+              </>
             )}
-            Delete
           </button>
         </div>
       </div>

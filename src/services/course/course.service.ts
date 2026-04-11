@@ -1,10 +1,10 @@
 import Cookies from 'js-cookie';
 
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
-const token = Cookies.get('better-auth.session_token');
 
 export const courseService = {
   createCourse: async (formData: FormData) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/course`, {
         method: 'POST',
@@ -30,6 +30,7 @@ export const courseService = {
     }
   },
   getCourses: async () => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/course`, {
         method: 'GET',
@@ -54,6 +55,7 @@ export const courseService = {
     }
   },
   getCourseById: async (course_id: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/course/${course_id}`,
@@ -81,6 +83,7 @@ export const courseService = {
     }
   },
   updateCourse: async (course_id: string, formData: FormData) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/course/update/${course_id}`,
@@ -108,6 +111,7 @@ export const courseService = {
     }
   },
   deleteCourse: async (course_id: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/course/delete/${course_id}`,
@@ -134,6 +138,7 @@ export const courseService = {
     }
   },
   addTofavorites: async (course_id: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/favorites`, {
         method: 'POST',
@@ -159,6 +164,7 @@ export const courseService = {
     }
   },
   deleteFromFavorites: async (course_id: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/favorites/delete`, {
         method: 'DELETE',
@@ -184,6 +190,7 @@ export const courseService = {
     }
   },
   createModule: async (course_id: string, title: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/module`, {
         method: 'POST',
@@ -209,6 +216,7 @@ export const courseService = {
     }
   },
   insertModule: async (module_id: string, title: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/module/${module_id}`,
@@ -237,6 +245,7 @@ export const courseService = {
     }
   },
   updateModule: async (module_id: string, title: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/module/update/${module_id}`,
@@ -265,6 +274,7 @@ export const courseService = {
     }
   },
   deleteModule: async (module_id: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/module/delete/${module_id}`,
@@ -291,6 +301,7 @@ export const courseService = {
     }
   },
   createLecture: async (formData: FormData) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/lecture`, {
         method: 'POST',
@@ -315,6 +326,7 @@ export const courseService = {
     }
   },
   insertLecture: async (lecture_id: string, formData: FormData) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/lecture/${lecture_id}`,
@@ -342,6 +354,7 @@ export const courseService = {
     }
   },
   updateLecture: async (lecture_id: string, formData: FormData) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/lecture/update/${lecture_id}`,
@@ -369,6 +382,7 @@ export const courseService = {
     }
   },
   deleteLecture: async (lecture_id: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(
         `${NEXT_PUBLIC_API_URL}/lecture/delete/${lecture_id}`,
@@ -395,6 +409,7 @@ export const courseService = {
     }
   },
   createReviews: async (course_id: string, content: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const response = await fetch(`${NEXT_PUBLIC_API_URL}/reviews`, {
         method: 'POST',

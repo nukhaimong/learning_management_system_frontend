@@ -1,10 +1,10 @@
 import Cookies from 'js-cookie';
 
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
-const token = Cookies.get('better-auth.session_token');
 
 export const categoryService = {
   createCategory: async (title: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const res = await fetch(`${NEXT_PUBLIC_API_URL}/category`, {
         method: 'POST',
@@ -28,6 +28,7 @@ export const categoryService = {
     }
   },
   getCategories: async () => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const res = await fetch(`${NEXT_PUBLIC_API_URL}/category`, {
         method: 'GET',
@@ -48,6 +49,7 @@ export const categoryService = {
     }
   },
   updateCategory: async (category_id: string, title: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const res = await fetch(
         `${NEXT_PUBLIC_API_URL}/category/update/${category_id}`,
@@ -72,6 +74,7 @@ export const categoryService = {
     }
   },
   deleteCategory: async (category_id: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const res = await fetch(
         `${NEXT_PUBLIC_API_URL}/category/delete/${category_id}`,

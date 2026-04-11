@@ -1,10 +1,10 @@
 import Cookies from 'js-cookie';
 
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
-const token = Cookies.get('better-auth.session_token');
 
 export const enrollmentService = {
   enrollInCourse: async (course_id: string) => {
+    const token = Cookies.get('better-auth.session_token');
     try {
       const res = await fetch(
         `${NEXT_PUBLIC_API_URL}/enrollment/${course_id}`,

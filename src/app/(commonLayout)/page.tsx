@@ -2,14 +2,18 @@ import CourseGrid from '@/components/homepage/featuredCourse';
 import Hero from '@/components/homepage/herosection';
 import WhyChooseUs from '@/components/homepage/whyChooseUs';
 import { getCategories } from '@/services/category/category.server.service';
-import { getCourses } from '@/services/course/course.server.service';
+import {
+  getCourses,
+  getFreeCourses,
+} from '@/services/course/course.server.service';
 import { Course } from '@/types';
 import { cookies } from 'next/headers';
 
 export default async function Home() {
-  const [catRes, courseRes] = await Promise.all([
+  const [catRes, courseRes, freeCourses] = await Promise.all([
     getCategories(),
     getCourses(),
+    getFreeCourses(),
   ]);
 
   const cookiesTest = await cookies();
@@ -18,6 +22,7 @@ export default async function Home() {
   const categories = catRes?.data || [];
   const topFiveCategory = categories.slice(0, 5);
   const allCourses = courseRes?.data || [];
+  const allFreeCourses = freeCourses?.data || [];
 
   // 1. Featured: The latest 4 published courses (regardless of price)
   const featuredCourses = allCourses
@@ -25,8 +30,8 @@ export default async function Home() {
     .slice(0, 4);
 
   // 2. Free: The latest 4 courses where isFree is true
-  const freeCourses = allCourses
-    ?.filter((c: Course) => c.isPublished === true && c.isFree === true)
+  const publishedFreeCourses = allFreeCourses
+    ?.filter((c: Course) => c.isPublished === true)
     .slice(0, 4);
 
   return (
@@ -64,7 +69,7 @@ export default async function Home() {
               </p>
             </div>
           </div>
-          <CourseGrid courses={freeCourses} />
+          <CourseGrid courses={publishedFreeCourses} />
         </div>
         <div className="mt-10">
           <WhyChooseUs />
