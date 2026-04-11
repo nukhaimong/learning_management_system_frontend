@@ -35,7 +35,7 @@ export const getFreeCourses = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get('better-auth.session_token')?.value;
   try {
-    const response = await fetch(`${API_URL}/course/free-courses}`, {
+    const response = await fetch(`${API_URL}/course/free-courses`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export const getFreeCourses = async () => {
     });
 
     const data = await response.json();
-
+    console.log('getting free courses', data);
     if (!response.ok) {
       return { error: { message: data.message } };
     }

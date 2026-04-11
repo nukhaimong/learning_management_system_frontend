@@ -16,9 +16,6 @@ export default async function Home() {
     getFreeCourses(),
   ]);
 
-  const cookiesTest = await cookies();
-  console.log(cookiesTest);
-
   const categories = catRes?.data || [];
   const topFiveCategory = categories.slice(0, 5);
   const allCourses = courseRes?.data || [];
