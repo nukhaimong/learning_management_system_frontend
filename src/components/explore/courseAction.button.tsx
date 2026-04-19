@@ -37,6 +37,11 @@ const CourseActionButtons: React.FC<CourseActionButtonsProps> = ({
         toast.error(res.error.message, { id: toastId });
         return;
       }
+      if (res.data?.message === 'Enrolled successfully') {
+        toast.success(res.message, { id: toastId });
+        return;
+      }
+
       toast.success(res.message + 'redirecto to payment', { id: toastId });
 
       if (res.data?.url) {

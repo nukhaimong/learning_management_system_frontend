@@ -45,7 +45,6 @@ export const getFreeCourses = async () => {
     });
 
     const data = await response.json();
-    console.log('getting free courses', data);
     if (!response.ok) {
       return { error: { message: data.message } };
     }

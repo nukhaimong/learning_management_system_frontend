@@ -7,7 +7,6 @@ import {
   getFreeCourses,
 } from '@/services/course/course.server.service';
 import { Course } from '@/types';
-import { cookies } from 'next/headers';
 
 export default async function Home() {
   const [catRes, courseRes, freeCourses] = await Promise.all([
