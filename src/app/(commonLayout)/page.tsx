@@ -1,5 +1,10 @@
+import BecomeInstructor from '@/components/homepage/becomeInstructor';
+import FAQ from '@/components/homepage/faq';
 import CourseGrid from '@/components/homepage/featuredCourse';
 import Hero from '@/components/homepage/herosection';
+import HowItWorks from '@/components/homepage/howItWorks';
+import StudentStats from '@/components/homepage/studentStats';
+import Testimonials from '@/components/homepage/testimonial';
 import WhyChooseUs from '@/components/homepage/whyChooseUs';
 import { getCategories } from '@/services/category/category.server.service';
 import {
@@ -34,6 +39,8 @@ export default async function Home() {
     <main className="min-h-screen">
       <Hero categories={topFiveCategory} />
 
+      <HowItWorks />
+
       {/* SECTION 1: FEATURED COURSES */}
       <section className="py-16 container mx-auto px-4">
         <div className="flex justify-between items-end mb-10">
@@ -67,10 +74,12 @@ export default async function Home() {
           </div>
           <CourseGrid courses={publishedFreeCourses} />
         </div>
-        <div className="mt-10">
-          <WhyChooseUs />
-        </div>
       </section>
+      <StudentStats />
+      <WhyChooseUs />
+      <Testimonials />
+      <BecomeInstructor />
+      <FAQ />
     </main>
   );
 }
